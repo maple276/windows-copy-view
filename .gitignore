@@ -1,0 +1,22 @@
+# ---- .NET 构建产物（全部可重新生成，不要提交）----
+bin/
+obj/
+build/
+publish/
+*.user
+*.suo
+.vs/
+*.tmp
+
+# ---- 运行时生成的文件 ----
+copy-tray.ico
+copyhint.ini
+copyhint.log
+
+# ---- 发布的可执行文件（49 MB，属于产物，用 Releases 分发，不进仓库）----
+*.exe
+
+# ---- 系统杂物 ----
+Thumbs.db
+desktop.ini
+.DS_Store

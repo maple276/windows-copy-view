@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AssemblyName>CopyHint</AssemblyName>
+    <RootNamespace>CopyHint</RootNamespace>
+    <Product>复制提示</Product>
+    <AssemblyTitle>复制提示 · 文本 + 文件</AssemblyTitle>
+    <Description>复制成功后的小气泡提示（文本 / 文件）</Description>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <!-- 单文件自包含发布时不需要这些 -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+    <DebugType>none</DebugType>
+    <!-- exe / 任务管理器 / 快捷方式用的图标：copy-view 目录下的 copy.ico。
+         托盘图标同样用这个文件（见 Icons.cs）。 -->
+    <ApplicationIcon>..\copy.ico</ApplicationIcon>
+    <!-- 测试脚手架（TestWindow.cs / TestActions.cs）编译进程序、正常运行时不可达，
+         想彻底剔除请在构建时加 -p:DefineConstants=RELEASE_NO_TEST -->
+    <DefineConstants Condition="'$(Configuration)'=='Release'">$(DefineConstants);TESTS</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 把 copy.ico 也嵌进程序集：托盘图标优先从 exe 自身取，不再依赖旁边的文件。
+         （单文件发布时嵌入资源随 exe 走，旁边不带 ico 也能正常显示托盘图标。） -->
+    <EmbeddedResource Include="..\copy.ico" LogicalName="CopyHint.copy.ico" />
+    <!-- 同时复制一份到输出/发布目录：托盘图标最稳的加载方式是 LoadImage 从文件读，
+         顺手也方便以后直接替换目录里的 copy.ico。 -->
+    <None Include="..\copy.ico" Link="copy.ico" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
